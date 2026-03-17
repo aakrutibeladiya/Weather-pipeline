@@ -32,7 +32,7 @@ def fetch_weather(city):
 
 def main():
     producer = KafkaProducer(
-        bootstrap_servers="localhost:9092",
+        bootstrap_servers="kafka:29092",
         value_serializer=lambda v: json.dumps(v).encode("utf-8"),
         retries=3,
     )

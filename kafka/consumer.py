@@ -3,6 +3,8 @@ import boto3
 import os
 from kafka import KafkaConsumer
 from datetime import datetime, timezone
+from dotenv import load_dotenv
+load_dotenv() 
 
 # AWS config from environment variables
 S3_BUCKET = os.getenv("S3_BUCKET", "weather-pipeline-raw")
@@ -35,7 +37,7 @@ def save_to_s3(s3, record):
 def main():
     consumer = KafkaConsumer(
         "weather-raw",
-        bootstrap_servers="localhost:9092",
+        bootstrap_servers="kafka:29092",
         value_deserializer=lambda m: json.loads(m.decode("utf-8")),
         auto_offset_reset="earliest",   # Read from beginning of topic
         consumer_timeout_ms=10000,      # Stop after 10s of no messages
